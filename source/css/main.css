@@ -1019,3 +1019,15 @@ ol li {
     padding-left: 20px;
   }
 }
+
+/* Discord custom emoji */
+.discord-emoji {
+  display: inline;
+  height: 1.4em;
+  width: auto;
+  vertical-align: middle;
+  margin: 0 2px;
+}
+.discord-emoji-animated {
+  image-rendering: auto;
+}
