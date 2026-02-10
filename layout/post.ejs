@@ -1,4 +1,10 @@
-<div class="article">
+<%
+    const mood = getMood(page.tags.data);
+    const moodStyle = mood
+        ? `--mood-bg:${mood.bg};--mood-text:${mood.text};--mood-chip:${mood.chip}`
+        : '';
+%>
+<div class="article" <% if (mood) { %>data-mood="<%- mood.name %>" style="<%- moodStyle %>"<% } %>>
     <div>
         <h1><%= page.title %></h1>
     </div>
@@ -28,11 +34,17 @@
             <% page.tags.data.forEach((tag) => { %>
             <span class="tag">
                 <%
-                    const colors = theme.colors.filter((color) => color !== prev);
-                    let id = Math.floor(Math.random() * colors.length);
-                    prev = colors[id];
+                    let tagColor;
+                    if (mood) {
+                        tagColor = mood.chip;
+                    } else {
+                        const colors = theme.colors.filter((color) => color !== prev);
+                        let id = Math.floor(Math.random() * colors.length);
+                        prev = colors[id];
+                        tagColor = colors[id];
+                    }
                 %>
-                <a href="<%- url_for(tag.path) %>" style="color: <%- colors[id] %>">
+                <a href="<%- url_for(tag.path) %>" style="color: <%- tagColor %>">
                     <%= tag.name %>
                 </a>
             </span>

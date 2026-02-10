@@ -9,7 +9,13 @@
     posts = posts.slice(current, config.index_generator.per_page + current);
 %>
 <% posts.forEach((post) => { %>
-<div class="post">
+<%
+    const mood = getMood(post.tags.data);
+    const moodStyle = mood
+        ? `--mood-bg:${mood.bg};--mood-text:${mood.text};--mood-chip:${mood.chip}`
+        : '';
+%>
+<div class="post" <% if (mood) { %>data-mood="<%- mood.name %>" style="<%- moodStyle %>"<% } %>>
     <a href="<%- url_for(post.path) %>">
         <h2 class="post-title"><%= post.title %></h2>
     </a>
@@ -62,14 +68,20 @@
         <% post.tags.data.forEach((tag) => { %>
         <span class="tag">
             <%
-                const colors = theme.colors.filter((color) => color !== prev);
-                let id = Math.floor(Math.random() * colors.length);
-                prev = colors[id];
+                let tagColor;
+                if (mood) {
+                    tagColor = mood.chip;
+                } else {
+                    const colors = theme.colors.filter((color) => color !== prev);
+                    let id = Math.floor(Math.random() * colors.length);
+                    prev = colors[id];
+                    tagColor = colors[id];
+                }
             %>
-            <a href="<%- url_for(tag.path) %>" style="color: <%- colors[id] %>"><%= tag.name %></a>
+            <a href="<%- url_for(tag.path) %>" style="color: <%- tagColor %>"><%= tag.name %></a>
         </span>
         <% }); %>
     </div>
-    <a href="<%- url_for(post.path) %>" class="go-post">阅读全文</a>
+    <a href="<%- url_for(post.path) %>" class="go-post"<% if (mood) { %> style="color: <%- mood.chip %>"<% } %>>阅读全文</a>
 </div>
 <% }); %>
