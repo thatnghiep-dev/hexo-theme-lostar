@@ -4,7 +4,7 @@
 %>
 <div id="archives">
     <% if (theme.search.enable) { %>
-    <input id="search-bar" class="input" placeholder="搜索" v-model="rawSearch" />
+    <input id="search-bar" class="input" placeholder="Search" v-model="rawSearch" />
     <% } %>
     <div id="timeline-wrap" ref="timeline">
         <% posts.reverse().forEach((post, id) => { %>

@@ -23,17 +23,17 @@ colors:
 # Each mood maps tags to bg/text/chip colors
 # First matching mood wins; "default" is fallback
 moods:
-  default: giac-mo-than-tien
+  default: fairy-dream
   list:
-    giac-mo-than-tien:
+    fairy-dream:
       tags:
-        - "Giấc mơ thần tiên"
+        - "Fairy Dream"
       bg: "#fff9e3"
       text: "#382615"
       chip: "#b694d0"
-    tam-tri-lang-thang:
+    wandering-mind:
       tags:
-        - "Tâm trí lang thang"
+        - "Wandering Mind"
       bg: "#f8fce1"
       text: "#2d4a1a"
       chip: "#8db860"
