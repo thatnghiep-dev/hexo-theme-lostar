@@ -19,7 +19,9 @@ mixins.stars = {
 
 		// --- Config ---
 		const STAR_COUNT = 90;
-		const SHOOTING_INTERVAL = 6000; // ms between shooting stars
+		const SHOOTING_INTERVAL = 1400; // ms between shooting stars
+		const MAX_SHOOTING_STARS = 4;
+		const EXTRA_SHOOTING_CHANCE = 0.35;
 		const COLORS = [
 			"rgba(255,255,255,", // white
 			"rgba(173,216,255,", // soft blue
@@ -153,8 +155,14 @@ mixins.stars = {
 
 		// Spawn shooting stars periodically
 		const shootingTimer = setInterval(() => {
-			if (shootingStars.length < 2) {
+			if (shootingStars.length < MAX_SHOOTING_STARS) {
 				shootingStars.push(createShootingStar());
+				if (
+					Math.random() < EXTRA_SHOOTING_CHANCE &&
+					shootingStars.length < MAX_SHOOTING_STARS
+				) {
+					shootingStars.push(createShootingStar());
+				}
 			}
 		}, SHOOTING_INTERVAL);
 
