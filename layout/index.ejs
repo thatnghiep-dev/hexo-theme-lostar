@@ -12,8 +12,8 @@
         <span class="info">
             <div class="wrap">
                 <h1><%= config.title %></h1>
-                <h3><%= config.subtitle %></h3>
-                <h5><%= config.description %></h5>
+                <% if (config.subtitle) { %><h3><%= config.subtitle %></h3><% } %>
+
             </div>
         </span>
     </div>
