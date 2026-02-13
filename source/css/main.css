@@ -442,7 +442,7 @@
 }
 #loading {
   align-items: center;
-  background: #fff;
+  background: #fffdfa;
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -848,7 +848,7 @@ blockquote {
   padding: 0 15px;
 }
 body {
-  background: #f6f8fa;
+  background: #fffdfa;
   color: #1e3e3f;
   font:
     500 14px Lexend,
