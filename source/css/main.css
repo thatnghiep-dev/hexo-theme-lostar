@@ -401,7 +401,7 @@
   margin-right: calc(100% - 100vw);
 }
 #menu {
-  background: #92cafa;
+  background: #fff9e3;
   box-shadow: 0 -1px 10px 0 #9e9e9e4d;
   font-weight: bold;
   line-height: 50px;
@@ -417,13 +417,13 @@
   height: 50px;
 }
 #menu #desktop-menu .title {
-  color: #555;
+  color: #382615;
   display: inline-block;
   margin-left: 60px;
   margin-right: 5px;
 }
 #menu #desktop-menu a {
-  color: #555;
+  color: #382615;
   display: inline-block;
   margin-left: 30px;
 }
@@ -443,10 +443,10 @@
   width: 80%;
 }
 #menu #mobile-menu .items a {
-  color: #555;
+  color: #382615;
 }
 #menu #mobile-menu .title {
-  color: #555;
+  color: #382615;
   cursor: pointer;
   z-index: 1003;
 }
