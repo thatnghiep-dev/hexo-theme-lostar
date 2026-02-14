@@ -11,32 +11,79 @@ background:
 # Loading image
 loading: /images/loading.gif
 
-# Optional colors for category and tag
-colors:
-  - "#ffa2c4"
-  - "#00bcd4"
-  - "#03a9f4"
-  - "#00a596"
-  - "#ff7d73"
+# Taxonomy Style System
+# Config-driven colors for categories and tags.
+# Category drives post background/text color.
+# Each category/tag can define its own palette + text effects (outline, spark).
+taxonomy_styles:
+  enable: true
 
-# Mood system: per-post color theming based on tags
-# Each mood maps tags to bg/text/chip colors
-# First matching mood wins; "default" is fallback
-moods:
-  default: nhat-ky
-  list:
-    nhat-ky:
-      tags:
-        - "Nhật ký"
-      bg: "#fff9e3"
-      text: "#382615"
-      chip: "#b694d0"
-    suy-nghi:
-      tags:
-        - "Suy nghĩ"
-      bg: "#f8fce1"
-      text: "#d6e499"
-      chip: "#f8fce1"
+  # Default palette when no category/tag match
+  defaults:
+    post:
+      bg: "#fffdfa"
+      text: "#1e3e3f"
+    category:
+      bg: "#eef2f7"
+      text: "#4f6370"
+    tag:
+      bg: "#eef2f7"
+      text: "#4f6370"
+    effects:
+      outline:
+        enable: false
+        color: "#00000033"
+        width: "1px"
+      spark:
+        enable: false
+        color: "#ffffff"
+        blur: "8px"
+        opacity: 0.35
+        duration: "2.6s"
+
+  # Per-category styling (drives post bg/text + category chip color)
+  categories:
+    "Tâm trí lang thang":
+      post:
+        bg: "#F1F8D1"
+        text: "#CFDF8D"
+      category:
+        bg: "#CFDF8D"
+        text: "#3a4a1a"
+      tag_default:
+        bg: "#e6f0b8"
+        text: "#3a4a1a"
+      effects:
+        outline:
+          enable: true
+          color: "#CFDF8D66"
+          width: "1px"
+        spark:
+          enable: false
+    "Giấc mơ thần tiên":
+      post:
+        bg: "#fff9e3"
+        text: "#382615"
+      category:
+        bg: "#b694d0"
+        text: "#2b173b"
+      tag_default:
+        bg: "#e8d5f5"
+        text: "#382615"
+      effects:
+        outline:
+          enable: false
+        spark:
+          enable: false
+
+  # Per-tag overrides (overrides category tag_default for specific tags)
+  tags:
+    "Tâm trí lang thang":
+      bg: "#d6e499"
+      text: "#233213"
+    "Giấc mơ thần tiên":
+      bg: "#c8a3e3"
+      text: "#2b173b"
 
 # ParticleX theme icon is adopts the Font Awesome 6
 # https://fontawesome.com

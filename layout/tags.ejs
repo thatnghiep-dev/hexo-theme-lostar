@@ -1,34 +1,24 @@
 <div id="archives">
     <% let posts = []; %>
     <div class="categories-tags">
-        <% let prev; %>
         <% site.tags.forEach((tag) => { %>
         <%
-            let tagBg;
-            if (is_tag(tag.name)) {
-                tagBg = "linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)";
-            } else {
-                // Check if this tag belongs to a mood
-                const moodMatch = getMood([tag]);
-                if (moodMatch) {
-                    tagBg = moodMatch.chip;
-                } else {
-                    const colors = theme.colors.filter((color) => color !== prev);
-                    let id = Math.floor(Math.random() * colors.length);
-                    prev = colors[id];
-                    tagBg = colors[id];
-                }
-            }
+            const tagStyle = getTxTagStyle(tag.name);
+            const isActive = is_tag(tag.name);
+            const chipBg = isActive
+                ? `linear-gradient(120deg, ${tagStyle ? tagStyle.bg : '#9abbf7'} 0%, ${tagStyle ? tagStyle.bg : '#ffbbf4'} 60%)`
+                : (tagStyle ? tagStyle.bg : '#eef2f7');
+            const chipText = tagStyle ? tagStyle.text : '#4f6370';
         %>
         <span>
-            <a href="<%- url_for(tag.path) %>" style="background: <%- tagBg %>">
+            <a href="<%- url_for(tag.path) %>" style="background: <%- chipBg %>; color: <%- chipText %>"<% if (isActive) { %> class="active-chip"<% } %>>
                 <span class="icon">
                     <i class="fa-solid fa-tags fa-fw"></i>
                 </span>
                 <%= tag.name %>
             </a>
         </span>
-        <% if (is_tag(tag.name)) { %>
+        <% if (isActive) { %>
         <%
             posts = tag.posts;
             posts.data.sort((a, b) => b.date - a.date);
@@ -37,6 +27,9 @@
         <% }); %>
     </div>
     <% posts.forEach((post) => { %>
+    <%
+        const postCatName = post.categories && post.categories.data.length > 0 ? post.categories.data[0].name : null;
+    %>
     <div class="timeline">
         <div class="timeline-tail"></div>
         <div class="timeline-content">
@@ -46,8 +39,11 @@
             </a>
             <div class="info">
                 <% if (post.categories && post.categories.data.length !== 0) { %>
+                <%
+                    const catStyle = getTxCategoryStyle(post.categories.data[0].name);
+                %>
                 <span class="category">
-                    <a href="<%- url_for(post.categories.data[0].path) %>">
+                    <a href="<%- url_for(post.categories.data[0].path) %>"<% if (catStyle) { %> style="color:<%- catStyle.text %>"<% } %>>
                         <span class="icon">
                             <i class="fa-solid fa-bookmark fa-fw"></i>
                         </span>
@@ -60,22 +56,12 @@
                     <span class="icon">
                         <i class="fa-solid fa-tags fa-fw"></i>
                     </span>
-                    <% let prev; %>
                     <% post.tags.data.forEach((tag) => { %>
+                    <%
+                        const tStyle = getTxTagStyle(tag.name, postCatName);
+                    %>
                     <span class="tag">
-                        <%
-                            const tagMood = getMood([tag]);
-                            let tagColor;
-                            if (tagMood) {
-                                tagColor = tagMood.chip;
-                            } else {
-                                const colors = theme.colors.filter((color) => color !== prev);
-                                let id = Math.floor(Math.random() * colors.length);
-                                prev = colors[id];
-                                tagColor = colors[id];
-                            }
-                        %>
-                        <a href="<%- url_for(tag.path) %>" style="color: <%- tagColor %>">
+                        <a href="<%- url_for(tag.path) %>"<% if (tStyle) { %> style="color:<%- tStyle.text %>"<% } %>>
                             <%= tag.name %>
                         </a>
                     </span>

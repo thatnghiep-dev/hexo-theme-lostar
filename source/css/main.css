@@ -273,10 +273,10 @@
   color: #999;
 }
 #home-posts .post {
-  background: var(--mood-bg, #fff);
+  background: var(--tx-post-bg, #fff);
   border-radius: 20px;
   box-shadow: 0 0 20px #d9d9d980;
-  color: var(--mood-text, inherit);
+  color: var(--tx-post-text, inherit);
   transition:
     box-shadow 0.25s,
     transform 0.25s;
@@ -342,7 +342,7 @@
   line-height: 1.7;
 }
 #home-posts .post-title {
-  color: var(--mood-chip, #66afef);
+  color: var(--tx-cat-text, #66afef);
   text-align: center;
 }
 #home-posts .post:hover {
@@ -510,25 +510,25 @@
   margin-top: 100px;
   padding: 20px;
 }
-.article[data-mood] {
-  background: var(--mood-bg);
+.article[data-category] {
+  background: var(--tx-post-bg);
   border-radius: 20px;
-  color: var(--mood-text);
+  color: var(--tx-post-text);
 }
-.article[data-mood] h1,
-.article[data-mood] h2,
-.article[data-mood] h3,
-.article[data-mood] h4,
-.article[data-mood] h5,
-.article[data-mood] h6 {
-  color: var(--mood-text);
+.article[data-category] h1,
+.article[data-category] h2,
+.article[data-category] h3,
+.article[data-category] h4,
+.article[data-category] h5,
+.article[data-category] h6 {
+  color: var(--tx-post-text);
 }
-.article[data-mood] a {
-  color: var(--mood-chip);
+.article[data-category] a {
+  color: var(--tx-cat-text);
 }
-.article[data-mood] .info .date,
-.article[data-mood] .info a {
-  color: var(--mood-text);
+.article[data-category] .info .date,
+.article[data-category] .info a {
+  color: var(--tx-post-text);
   opacity: 0.7;
 }
 .article .content {
@@ -1056,4 +1056,32 @@ ol li {
 }
 .discord-emoji-animated {
   image-rendering: auto;
+}
+
+/* ====== Taxonomy Effects ====== */
+
+/* Outline effect: text-shadow based outline */
+.fx-outline {
+  text-shadow:
+    calc(-1 * var(--fx-outline-width, 1px)) 0 var(--fx-outline-color, #00000033),
+    var(--fx-outline-width, 1px) 0 var(--fx-outline-color, #00000033),
+    0 calc(-1 * var(--fx-outline-width, 1px)) var(--fx-outline-color, #00000033),
+    0 var(--fx-outline-width, 1px) var(--fx-outline-color, #00000033);
+}
+
+/* Spark effect: animated glow shimmer */
+.fx-spark {
+  animation: spark-animation var(--fx-spark-duration, 2.6s) ease-in-out infinite;
+}
+
+@keyframes spark-animation {
+  0%,
+  100% {
+    text-shadow: 0 0 var(--fx-spark-blur, 8px) var(--fx-spark-color, #ffffff);
+    opacity: 1;
+  }
+  50% {
+    text-shadow: 0 0 calc(var(--fx-spark-blur, 8px) * 2) var(--fx-spark-color, #ffffff);
+    opacity: var(--fx-spark-opacity, 0.35);
+  }
 }

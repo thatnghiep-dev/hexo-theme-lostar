@@ -17,8 +17,11 @@
                 </a>
                 <div class="info">
                     <% if (post.categories && post.categories.data.length !== 0) { %>
+                    <%
+                        const catStyle = getTxCategoryStyle(post.categories.data[0].name);
+                    %>
                     <span class="category">
-                        <a href="<%- url_for(post.categories.data[0].path) %>">
+                        <a href="<%- url_for(post.categories.data[0].path) %>"<% if (catStyle) { %> style="color:<%- catStyle.text %>"<% } %>>
                             <span class="icon">
                                 <i class="fa-solid fa-bookmark fa-fw"></i>
                             </span>
@@ -26,27 +29,20 @@
                         </a>
                     </span>
                     <% } %>
+                    <%
+                        const arcCatName = post.categories && post.categories.data.length > 0 ? post.categories.data[0].name : null;
+                    %>
                     <% if (post.tags && post.tags.data.length !== 0) { %>
                     <span class="tags">
                         <span class="icon">
                             <i class="fa-solid fa-tags fa-fw"></i>
                         </span>
-                        <% let prev; %>
                         <% post.tags.data.forEach((tag) => { %>
+                        <%
+                            const tagStyle = getTxTagStyle(tag.name, arcCatName);
+                        %>
                         <span class="tag">
-                            <%
-                                const tagMood = getMood([tag]);
-                                let tagColor;
-                                if (tagMood) {
-                                    tagColor = tagMood.chip;
-                                } else {
-                                    const colors = theme.colors.filter((color) => color !== prev);
-                                    let id = Math.floor(Math.random() * colors.length);
-                                    prev = colors[id];
-                                    tagColor = colors[id];
-                                }
-                            %>
-                            <a href="<%- url_for(tag.path) %>" style="color: <%- tagColor %>">
+                            <a href="<%- url_for(tag.path) %>"<% if (tagStyle) { %> style="color:<%- tagStyle.text %>"<% } %>>
                                 <%= tag.name %>
                             </a>
                         </span>
