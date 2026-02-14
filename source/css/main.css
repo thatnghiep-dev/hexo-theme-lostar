@@ -985,7 +985,6 @@ ol li {
   }
   #home-head #home-info .info {
     align-items: center;
-    background: #ffffffa6;
     display: flex;
     height: 350px;
     justify-content: center;
@@ -1008,7 +1007,7 @@ ol li {
     margin: 20px 0;
   }
   #home-head #home-info .loop {
-    display: none;
+    display: inline-block;
     height: 350px;
     position: absolute;
     width: 350px;
