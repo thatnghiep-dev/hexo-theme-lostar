@@ -342,7 +342,7 @@
   line-height: 1.7;
 }
 #home-posts .post-title {
-  color: var(--tx-title-color, var(--tx-cat-text, #66afef));
+  color: var(--tx-title-color, var(--tx-post-text, #66afef));
   text-align: center;
 }
 #home-posts .post:hover {
