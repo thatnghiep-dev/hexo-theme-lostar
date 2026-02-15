@@ -174,7 +174,7 @@
 #home-head {
   display: flex;
   height: 100vh;
-  width: 100vw;
+  width: 100%;
 }
 #home-head #home-background {
   background-position: center;
@@ -184,12 +184,12 @@
   left: 0;
   position: absolute;
   top: 0;
-  width: 100vw;
+  width: 100%;
   z-index: -1;
 }
 #home-head #home-info .info {
   align-items: center;
-  border-radius: 50%;
+
   display: flex;
   justify-content: center;
   text-align: center;
