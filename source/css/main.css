@@ -345,6 +345,11 @@
   color: var(--tx-title-color, var(--tx-post-text, #66afef));
   text-align: center;
 }
+#home-posts .post a:has(.post-title),
+#home-posts .post > a:first-child {
+  color: var(--tx-title-color, var(--tx-post-text, #66afef));
+  text-decoration: none;
+}
 #home-posts .post:hover {
   box-shadow: 0 0 5px #d9d9d9;
   transform: translate(-5px, -5px);
