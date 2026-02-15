@@ -515,14 +515,17 @@
   border-radius: 20px;
   color: var(--tx-post-text);
 }
-.article[data-category] h1 {
+/* Post title (h1 outside .content) */
+.article[data-category] > div > h1 {
   color: var(--tx-title-color, var(--tx-post-text));
 }
-.article[data-category] h2,
-.article[data-category] h3,
-.article[data-category] h4,
-.article[data-category] h5,
-.article[data-category] h6 {
+/* Content headings (h1-h6 inside .content) */
+.article[data-category] .content h1,
+.article[data-category] .content h2,
+.article[data-category] .content h3,
+.article[data-category] .content h4,
+.article[data-category] .content h5,
+.article[data-category] .content h6 {
   color: var(--tx-heading-color, var(--tx-post-text));
 }
 .article[data-category] a {
