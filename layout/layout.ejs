@@ -11,6 +11,24 @@
     if (is_category()) title = "Categories: " + page.category + " | " + config.title;
     if (is_tag()) title = "Tags: " + page.tag + " | " + config.title;
     if (is_archive()) title = "Archives | " + config.title;
+
+    /* ====== SEO: Dynamic description ====== */
+    let seoDescription = config.description || '';
+    if (page.description) {
+        seoDescription = page.description;
+    } else if (page.excerpt) {
+        seoDescription = strip_html(page.excerpt).replace(/\n/g, ' ').substring(0, 200).trim();
+    } else if (is_post() && page.content) {
+        seoDescription = strip_html(page.content).replace(/\n/g, ' ').substring(0, 200).trim();
+    }
+
+    /* ====== SEO: Dynamic keywords ====== */
+    let seoKeywords = config.keywords || '';
+    if (page.keywords) {
+        seoKeywords = page.keywords;
+    } else if (page.tags && page.tags.length) {
+        seoKeywords = page.tags.map(function(tag) { return tag.name; }).join(',');
+    }
 %>
 <!DOCTYPE html>
 <html lang="<%- config.language %>">
@@ -18,8 +36,10 @@
     <meta charset="utf-8" />
     <title><%= title %></title>
     <meta name="author" content="<%- config.author %>" />
-    <meta name="description" content="<%- config.description %>" />
-    <meta name="keywords" content="<%- config.keywords %>" />
+    <meta name="description" content="<%- seoDescription %>" />
+    <meta name="keywords" content="<%- seoKeywords %>" />
+    <link rel="canonical" href="<%- full_url_for(page.path || path) %>" />
+    <%- open_graph({ description: seoDescription }) %>
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
