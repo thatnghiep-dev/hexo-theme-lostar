@@ -237,3 +237,11 @@ twikoo:
   region:
   path: location.pathname
   lang:
+
+# SEO settings
+seo:
+  default_image: /images/avatar.gif
+  twitter_site:
+  twitter_id:
+  fb_app_id:
+  fb_admins:

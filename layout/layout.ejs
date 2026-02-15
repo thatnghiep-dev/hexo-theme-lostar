@@ -29,6 +29,22 @@
     } else if (page.tags && page.tags.length) {
         seoKeywords = page.tags.map(function(tag) { return tag.name; }).join(',');
     }
+
+    /* ====== SEO: Dynamic image ====== */
+    let seoDefaultImage = (theme.seo && theme.seo.default_image) || theme.avatar;
+    let seoImage = '';
+    if (page.og_image) {
+        seoImage = page.og_image;
+    } else if (page.photos && page.photos.length) {
+        seoImage = page.photos[0];
+    } else if (page.cover) {
+        seoImage = page.cover;
+    } else {
+        seoImage = seoDefaultImage;
+    }
+    if (seoImage && !seoImage.startsWith('http')) {
+        seoImage = config.url + url_for(seoImage);
+    }
 %>
 <!DOCTYPE html>
 <html lang="<%- config.language %>">
@@ -36,10 +52,19 @@
     <meta charset="utf-8" />
     <title><%= title %></title>
     <meta name="author" content="<%- config.author %>" />
-    <meta name="description" content="<%- seoDescription %>" />
+
     <meta name="keywords" content="<%- seoKeywords %>" />
     <link rel="canonical" href="<%- full_url_for(page.path || path) %>" />
-    <%- open_graph({ description: seoDescription }) %>
+    <%- open_graph({
+        description: seoDescription,
+        keywords: seoKeywords,
+        image: seoImage,
+        twitter_card: 'summary_large_image',
+        twitter_site: (theme.seo && theme.seo.twitter_site) || '',
+        twitter_image: seoImage,
+        fb_admins: (theme.seo && theme.seo.fb_admins) || '',
+        fb_app_id: (theme.seo && theme.seo.fb_app_id) || ''
+    }) %>
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
