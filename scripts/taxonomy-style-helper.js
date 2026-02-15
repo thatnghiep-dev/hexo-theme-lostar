@@ -44,6 +44,16 @@ hexo.extend.helper.register("getTxStyle", function (post) {
 			"#1e3e3f",
 	};
 
+	// Title + heading colors (optional per-category override)
+	const titleColor =
+		(catConfig.title && catConfig.title.color) ||
+		(defaults.title && defaults.title.color) ||
+		null;
+	const headingColor =
+		(catConfig.heading && catConfig.heading.color) ||
+		(defaults.heading && defaults.heading.color) ||
+		null;
+
 	// Category chip palette
 	const categoryChip = {
 		bg:
@@ -67,6 +77,8 @@ hexo.extend.helper.register("getTxStyle", function (post) {
 		category: firstCat,
 		post: postStyle,
 		categoryChip: categoryChip,
+		titleColor,
+		headingColor,
 		tagDefault: catConfig.tag_default ||
 			defaults.tag || { bg: "#eef2f7", text: "#4f6370" },
 		effects: { outline, spark },

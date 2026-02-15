@@ -11,9 +11,16 @@
 <% posts.forEach((post) => { %>
 <%
     const txStyle = getTxStyle(post);
-    const txVars = txStyle
-        ? `--tx-post-bg:${txStyle.post.bg};--tx-post-text:${txStyle.post.text};--tx-cat-bg:${txStyle.categoryChip.bg};--tx-cat-text:${txStyle.categoryChip.text}`
-        : '';
+    const txVarParts = [];
+    if (txStyle) {
+        txVarParts.push(`--tx-post-bg:${txStyle.post.bg}`);
+        txVarParts.push(`--tx-post-text:${txStyle.post.text}`);
+        txVarParts.push(`--tx-cat-bg:${txStyle.categoryChip.bg}`);
+        txVarParts.push(`--tx-cat-text:${txStyle.categoryChip.text}`);
+        if (txStyle.titleColor) txVarParts.push(`--tx-title-color:${txStyle.titleColor}`);
+        if (txStyle.headingColor) txVarParts.push(`--tx-heading-color:${txStyle.headingColor}`);
+    }
+    const txVars = txVarParts.join(';');
     const fxClasses = [];
     if (txStyle && txStyle.effects.outline.enable) fxClasses.push('fx-outline');
     if (txStyle && txStyle.effects.spark.enable) fxClasses.push('fx-spark');

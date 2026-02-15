@@ -342,7 +342,7 @@
   line-height: 1.7;
 }
 #home-posts .post-title {
-  color: var(--tx-cat-text, #66afef);
+  color: var(--tx-title-color, var(--tx-cat-text, #66afef));
   text-align: center;
 }
 #home-posts .post:hover {
@@ -515,13 +515,15 @@
   border-radius: 20px;
   color: var(--tx-post-text);
 }
-.article[data-category] h1,
+.article[data-category] h1 {
+  color: var(--tx-title-color, var(--tx-post-text));
+}
 .article[data-category] h2,
 .article[data-category] h3,
 .article[data-category] h4,
 .article[data-category] h5,
 .article[data-category] h6 {
-  color: var(--tx-post-text);
+  color: var(--tx-heading-color, var(--tx-post-text));
 }
 .article[data-category] a {
   color: var(--tx-cat-text);
