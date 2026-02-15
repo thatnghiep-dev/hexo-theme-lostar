@@ -531,7 +531,7 @@
 .article[data-category] .content h4,
 .article[data-category] .content h5,
 .article[data-category] .content h6 {
-  color: var(--tx-heading-color, var(--tx-title-color, var(--tx-post-text)));
+  color: var(--tx-heading-color, var(--tx-title-color, var(--tx-post-text))) !important;
 }
 .article[data-category] a {
   color: var(--tx-cat-text);
