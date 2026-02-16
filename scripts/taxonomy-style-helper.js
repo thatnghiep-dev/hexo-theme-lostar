@@ -32,24 +32,41 @@ hexo.extend.helper.register("getTxStyle", function (post) {
 	// Category config (or empty)
 	const catConfig = firstCat ? categoriesMap[firstCat] || {} : {};
 
-	// Post palette: category override → defaults
+	// Resolve tag overrides: check if any tag has full style config
+	const tagsMap = ts.tags || {};
+	const postTags = post.tags ? post.tags.data || post.tags : [];
+	let tagOverride = null;
+	for (const t of postTags) {
+		const tName = typeof t === "string" ? t : t.name;
+		const tConfig = tagsMap[tName];
+		if (tConfig && (tConfig.post || tConfig.title || tConfig.heading)) {
+			tagOverride = tConfig;
+			break;
+		}
+	}
+
+	// Post palette: tag override → category override → defaults
 	const postStyle = {
 		bg:
+			(tagOverride && tagOverride.post && tagOverride.post.bg) ||
 			(catConfig.post && catConfig.post.bg) ||
 			(defaults.post && defaults.post.bg) ||
 			"#fffdfa",
 		text:
+			(tagOverride && tagOverride.post && tagOverride.post.text) ||
 			(catConfig.post && catConfig.post.text) ||
 			(defaults.post && defaults.post.text) ||
 			"#1e3e3f",
 	};
 
-	// Title + heading colors (optional per-category override)
+	// Title + heading colors: tag override → category override → defaults
 	const titleColor =
+		(tagOverride && tagOverride.title && tagOverride.title.color) ||
 		(catConfig.title && catConfig.title.color) ||
 		(defaults.title && defaults.title.color) ||
 		null;
 	const headingColor =
+		(tagOverride && tagOverride.heading && tagOverride.heading.color) ||
 		(catConfig.heading && catConfig.heading.color) ||
 		(defaults.heading && defaults.heading.color) ||
 		null;
