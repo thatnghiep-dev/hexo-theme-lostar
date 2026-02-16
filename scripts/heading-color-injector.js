@@ -26,10 +26,25 @@ hexo.extend.filter.register("after_post_render", function (data) {
 
 	const catConfig = firstCat ? categoriesMap[firstCat] || {} : {};
 
-	// Resolve heading color
+	// Resolve tag overrides: check if any tag has heading config
+	const tagsMap = ts.tags || {};
+	const postTags = data.tags ? data.tags.data || data.tags : [];
+	let tagOverride = null;
+	for (const t of postTags) {
+		const tName = typeof t === "string" ? t : t.name;
+		const tConfig = tagsMap[tName];
+		if (tConfig && (tConfig.post || tConfig.title || tConfig.heading)) {
+			tagOverride = tConfig;
+			break;
+		}
+	}
+
+	// Resolve heading color: tag override → category → defaults
 	const headingColor =
+		(tagOverride && tagOverride.heading && tagOverride.heading.color) ||
 		(catConfig.heading && catConfig.heading.color) ||
 		(defaults.heading && defaults.heading.color) ||
+		(tagOverride && tagOverride.title && tagOverride.title.color) ||
 		(catConfig.title && catConfig.title.color) ||
 		(defaults.title && defaults.title.color) ||
 		null;
