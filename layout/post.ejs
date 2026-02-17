@@ -8,6 +8,7 @@
         txVarParts.push(`--tx-cat-text:${txStyle.categoryChip.text}`);
         if (txStyle.titleColor) txVarParts.push(`--tx-title-color:${txStyle.titleColor}`);
         if (txStyle.headingColor) txVarParts.push(`--tx-heading-color:${txStyle.headingColor}`);
+        if (txStyle.titleGlow) txVarParts.push(`--tx-title-glow:${txStyle.titleGlow}`);
     }
     const txVars = txVarParts.join(';');
     const fxClasses = [];

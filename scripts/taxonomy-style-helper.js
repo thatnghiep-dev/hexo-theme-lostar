@@ -88,6 +88,13 @@ hexo.extend.helper.register("getTxStyle", function (post) {
 	const catEffects = catConfig.effects || {};
 	const tagEffects = (tagOverride && tagOverride.effects) || {};
 
+	// Title glow (text-shadow): tag override → category → defaults
+	const titleGlow =
+		(tagOverride && tagOverride.title && tagOverride.title.glow) ||
+		(catConfig.title && catConfig.title.glow) ||
+		(defaults.title && defaults.title.glow) ||
+		null;
+
 	const outline = mergeEffect(defEffects.outline, catEffects.outline, tagEffects.outline);
 	const spark = mergeEffect(defEffects.spark, catEffects.spark, tagEffects.spark);
 
@@ -97,6 +104,7 @@ hexo.extend.helper.register("getTxStyle", function (post) {
 		categoryChip: categoryChip,
 		titleColor,
 		headingColor,
+		titleGlow,
 		tagDefault: catConfig.tag_default ||
 			defaults.tag || { bg: "#eef2f7", text: "#4f6370" },
 		effects: { outline, spark },
