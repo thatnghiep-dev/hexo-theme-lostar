@@ -52,19 +52,23 @@ hexo.extend.filter.register("after_post_render", function (data) {
 	if (!headingColor) return data;
 
 	// Inject color into h1-h6 tags in content
+	// Keep h1 size aligned with CSS content heading scale
 	data.content = data.content.replace(
 		/<(h[1-6])(\s[^>]*)?(>)/gi,
 		function (match, tag, attrs, close) {
 			attrs = attrs || "";
-			// If already has inline style, append color
+			const headingTag = String(tag || "").toLowerCase();
+			const sizeStyle = headingTag === "h1" ? "font-size:26px;" : "";
+			const injectedStyle = `color:${headingColor};${sizeStyle}`;
+			// If already has inline style, prepend injected style
 			if (/style\s*=/i.test(attrs)) {
 				return `<${tag}${attrs.replace(
 					/style\s*=\s*["']/i,
-					`style="color:${headingColor};`
+					`style="${injectedStyle}`
 				)}${close}`;
 			}
 			// Otherwise add style attribute
-			return `<${tag}${attrs} style="color:${headingColor}"${close}`;
+			return `<${tag}${attrs} style="${injectedStyle}"${close}`;
 		}
 	);
 
