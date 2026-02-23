@@ -525,12 +525,12 @@
 .article[data-category] > div > h1 {
   color: var(--tx-title-color, var(--tx-post-text));
   text-shadow: var(--tx-title-glow, none);
-  font-size: 27px;
+  font-size: 28px;
   line-height: 1.35;
 }
 /* Content headings (h1-h6 inside .content) */
 .article[data-category] .content h1 {
-  font-size: 27px;
+  font-size: 26px;
 }
 .article[data-category] .content h1,
 .article[data-category] .content h2,
