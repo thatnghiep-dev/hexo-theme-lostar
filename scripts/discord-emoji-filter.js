@@ -11,9 +11,9 @@
 
 const DISCORD_CDN = "https://cdn.discordapp.com/emojis";
 
-// Match <:name:id> and <a:name:id> patterns
+// Match <:name:id> and <a:name:id> patterns (escaped or raw)
 // Negative lookbehind (?<!`) avoids matching inside inline code
-const EMOJI_RE = /(?<!`)&lt;(a?):(\w+):(\d+)&gt;/g;
+const EMOJI_RE = /(?<!`)(?:&lt;|<)(a?):([A-Za-z0-9_]+):(\d+)(?:&gt;|>)/g;
 
 hexo.extend.filter.register("after_post_render", (data) => {
 	if (!data.content) return data;
