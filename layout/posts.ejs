@@ -40,6 +40,15 @@
     const catName = txStyle ? txStyle.category : null;
     const isDiaryPost = catName === 'Diary';
     const displayTitle = isDiaryPost ? date(post.date, "DD/MM/YYYY") : post.title;
+    const DISCORD_EMOJI_RE = /(?:&lt;|<)(a?):([A-Za-z0-9_]+):(\d+)(?:&gt;|>)/g;
+    const renderDiscordEmoji = (html) => {
+        if (!html) return html;
+        return String(html).replace(DISCORD_EMOJI_RE, (_m, animated, name, id) => {
+            const ext = animated === 'a' ? 'gif' : 'png';
+            const cls = animated === 'a' ? 'discord-emoji discord-emoji-animated' : 'discord-emoji';
+            return `<img class="${cls}" src="https://cdn.discordapp.com/emojis/${id}.${ext}" alt=":${name}:" title=":${name}:" loading="lazy" />`;
+        });
+    };
 %>
 <div class="post<%= fxClasses.length ? ' ' + fxClasses.join(' ') : '' %>" <% if (txStyle) { %>data-category="<%- catName %>" style="<%- allVars %>"<% } %>>
     <a href="<%- url_for(post.path) %>">
@@ -79,11 +88,11 @@
     <div class="description">
         <div class="content" v-pre>
             <% if (typeof post.description !== "undefined") { %>
-            <%- markdown(post.description) %>
+            <%- renderDiscordEmoji(markdown(post.description)) %>
             <% } else if (post.excerpt) { %>
-            <%- post.excerpt %>
+            <%- renderDiscordEmoji(post.excerpt) %>
             <% } else { %>
-            <%- post.content %>
+            <%- renderDiscordEmoji(post.content) %>
             <% } %>
         </div>
     </div>
