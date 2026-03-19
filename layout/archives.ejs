@@ -1,6 +1,10 @@
 <%
     let posts = site.posts;
     posts.data.sort((a, b) => b.date - a.date);
+    const getDisplayTitle = (post) => {
+        const catName = post.categories && post.categories.data.length > 0 ? post.categories.data[0].name : null;
+        return catName === 'Diary' ? date(post.date, 'DD/MM/YYYY') : post.title;
+    };
 %>
 <div id="archives">
     <% if (theme.search.enable) { %>
@@ -8,12 +12,12 @@
     <% } %>
     <div id="timeline-wrap" ref="timeline">
         <% posts.reverse().forEach((post, id) => { %>
-        <div class="timeline" data-title="<%- post.title.toLowerCase().replace(/\s+/g, "") %>">
+        <div class="timeline" data-title="<%- getDisplayTitle(post).toLowerCase().replace(/\s+/g, "") %>">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time"><%= date(post.date, "YYYY/M/D") %></div>
                 <a href="<%- url_for(post.path) %>">
-                    <h3><%= post.title %></h3>
+                    <h3><%= getDisplayTitle(post) %></h3>
                 </a>
                 <div class="info">
                     <% if (post.categories && post.categories.data.length !== 0) { %>

@@ -7,7 +7,12 @@
     if (is_archive()) type = "archives";
     let title = page.title + " | " + config.title;
     if (is_home()) title = config.title;
-    if (is_post() || is_page()) title = page.title + " | " + config.title;
+    if (is_post() || is_page()) {
+        let displayTitle = page.title;
+        const pageCatName = page.categories && page.categories.data && page.categories.data.length > 0 ? page.categories.data[0].name : null;
+        if (is_post() && pageCatName === 'Diary') displayTitle = date(page.date, 'DD/MM/YYYY');
+        title = displayTitle + " | " + config.title;
+    }
     if (is_category()) title = "Categories: " + page.category + " | " + config.title;
     if (is_tag()) title = "Tags: " + page.tag + " | " + config.title;
     if (is_archive()) title = "Archives | " + config.title;
